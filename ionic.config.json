@@ -1,0 +1,8 @@
+{
+  "name": "camperchat",
+  "app_id": "f2b9b80c",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
