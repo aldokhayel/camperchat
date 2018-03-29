@@ -1,14 +1,34 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+
+    <ion-navbar color="primary">
+
+        <ion-title>
+            <button ion-button icon-only>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+          Home Page
+        </ion-title>
+    </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="home" #chat id="chat">
+    <ion-list no-lines>
+        <ion-item *ngFor="let message of messages">
+            <ion-avatar item-left>
+                <img [src]="message.picture" alt="">
+            </ion-avatar>
+            <h2>{{message.username}}</h2>
+            <p>{{message.chatMessage}}</p>
+        </ion-item>
+    </ion-list>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-input [(ngModel)]="chatMessage" type="text" placeholder="etnter message ..."></ion-input>
+        <button ion-button icon-only (click)="sendMessage()" style="position: absolute; right: 0; top: 0; height: 56px; margin: 0">
+            <ion-icon name="chatbubbles"></ion-icon>
+        </button>
+    </ion-toolbar>
+</ion-footer>

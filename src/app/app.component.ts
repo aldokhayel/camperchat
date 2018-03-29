@@ -1,22 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
+//import { StatusBar } from '@ionic-native/status-bar';
+//import { SplashScreen } from '@ionic-native/splash-screen';
+import { Facebook } from '@ionic-native/facebook';
+import { Nav, MenuController } from 'ionic-angular';
+import { DataProvider } from '../../src/providers/data/data';
+import { LoginPage } from '../../src/pages/login/login';
+import { AboutPage } from '../../src/pages/about/about';
 import { HomePage } from '../pages/home/home';
+
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+  @ViewChild(Nav) nav: Nav;
+
+  rootPage:any = LoginPage;
+  homePage: any = HomePage;
+  //rootPage:any = HomePage;
+  //homePage: any = HomePage;
+  aboutPage: any = AboutPage;
+
+  constructor(public platform: Platform,
+              public dataService: DataProvider,
+              public menu: MenuController,
+              public Facebook: Facebook) {
+
+        platform.ready().then(() => {
+
+        });
+  }
+
+  opnePage(page): void {
+    this.menu.close();
+    this.nav.setRoot(page);
+
+  }
+
+  logout(): void {
+      this.menu.close();
+      this.menu.enable(false);
+      this.nav.setRoot(LoginPage);
+      this.dataService.fbid = null;
+      this.dataService.username = null;
+      this.dataService.picture = null;
+      this.Facebook.logout();
   }
 }
 
